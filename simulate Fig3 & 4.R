@@ -51,8 +51,8 @@ for(type in c('M','D'))
 		
 		while(1) # simulation step loop # will break out when tr >= tr_max
 		{
-		    # Calculate new values by Boolean functions
-		    Cdh1new = !( Cln2 || Clb5 || Clb2G || Clb2M ) || ( Cdc20 && !( Cln2 || Clb5 || Clb2M ) )
+		    	# Calculate new values by Boolean functions
+		    	Cdh1new = !( Cln2 || Clb5 || Clb2G || Clb2M ) || ( Cdc20 && !( Cln2 || Clb5 || Clb2M ) )
 			SBFnew = ( SBF && !( Clb2G || Clb2M ) ) || 
 				( 
 					( Cdh1 && !SBF && !Cln2 && !Clb5 && !Clb2G && !Clb2M && !Cdc20 ) &&
@@ -64,7 +64,7 @@ for(type in c('M','D'))
 			Clb2Mnew = ( Clb2G || Clb2M ) && !Cdh1 && ( !Cdc20 || Clb5 ) && !Cln2
 			Cdc20new = Clb2M || ( Clb2G && Cdc20 )
 
-		    # Which variables change? del...=0 if no change.
+		    	# Which variables change? del...=0 if no change.
 			delCdh1 = Cdh1new - Cdh1
 			delSBF  = SBFnew - SBF
 			delCln2 = Cln2new - Cln2
@@ -73,8 +73,8 @@ for(type in c('M','D'))
 			delClb2M = Clb2Mnew - Clb2M
 			delCdc20 = Cdc20new - Cdc20
 		
-		    # Propensity
-		    x1 = abs(delCdh1)*pCdh1
+		    	# Propensity
+		    	x1 = abs(delCdh1)*pCdh1
 			x2 = x1 + abs(delSBF)*pSBF
 			x3 = x2 + abs(delCln2)*pCln2
 			x4 = x3 + abs(delClb5)*pClb5
@@ -83,11 +83,11 @@ for(type in c('M','D'))
 			x7 = x6 + abs(delCdc20)*pCdc20
 		
 			# If no variables change, x7=0 so set propensity = pG1
-		    if(x7>0) { x8=x7 } else 
-		    { x8=pG1 }
+		    	if(x7>0) { x8=x7 } else 
+		    	{ x8=pG1 }
 		
 			# Determine which variable actually changes?
-		    s2 = runif(1)*x8
+		    	s2 = runif(1)*x8
 			y1 = (s2<x1)
 			y2 = (s2>=x1)&&(s2<x2)
 			y3 = (s2>=x2)&&(s2<x3)
@@ -115,25 +115,24 @@ for(type in c('M','D'))
 			
 			# cell division event
 			if (Clb2G==1 && Clb2Gnew==0 && y5==1)
-		    {
-		        if(sim.who=='M')
-		        {
-		        	f = rlnorm(1, log(f.mean), f.CV)
-		        } else
-		        {
-		        	f = rlnorm(1, log(1-f.mean), f.CV)
-		        }
+		    	{
+		        	if(sim.who=='M')
+		        	{
+		        		f = rlnorm(1, log(f.mean), f.CV)
+		        	} else
+		        	{
+		        		f = rlnorm(1, log(1-f.mean), f.CV)
+		        	}
 		        
-		        Size = Size*exp(mu*delt)*f
-		        S0=rlnorm(1,log(S0.mean), S0.CV) ## set a new S0
-		        
-		    } else
-		    {
-		        Size = Size*exp(mu*delt)
-		    }
+		        	Size = Size*exp(mu*delt)*f
+		        	S0=rlnorm(1,log(S0.mean), S0.CV) ## set a new S0
+		    	} else
+		    	{
+		        	Size = Size*exp(mu*delt)
+		    	}
 		
-		    # Update variables
-		    Cdh1 = Cdh1 + y1*delCdh1
+		    	# Update variables
+		    	Cdh1 = Cdh1 + y1*delCdh1
 			SBF = SBF  + y2*delSBF
 			Cln2 = Cln2 + y3*delCln2
 			Clb5 = Clb5 + y4*delClb5
@@ -141,14 +140,14 @@ for(type in c('M','D'))
 			Clb2M = Clb2M + y6*delClb2M
 			Cdc20 = Cdc20 + y7*delCdc20
 		    
-		    new.state <- data.frame(tr, Cdh1, SBF, Cln2, Clb5, Clb2G, Clb2M, Cdc20, Size, paste0(Cdh1, SBF, Cln2, Clb5, Clb2G, Clb2M, Cdc20))
+		    	new.state <- data.frame(tr, Cdh1, SBF, Cln2, Clb5, Clb2G, Clb2M, Cdc20, Size, paste0(Cdh1, SBF, Cln2, Clb5, Clb2G, Clb2M, Cdc20))
 			colnames(new.state)[10] <- 'Phase'
-		    state <- rbind(state, new.state)
+		    	state <- rbind(state, new.state)
 		
 			if( tr >= tr_max)
 			{
 				collect <- rbind(collect, c(Size, 0, 0, 0, paste0('s', Cdh1, SBF, Cln2, Clb5, Clb2G, Clb2M, Cdc20), sim.who, 0))
-		    	break;
+		    		break;
 			}	    
 		} ## single trajectory		
 	} ## end repeat
@@ -209,8 +208,8 @@ while(1)
 	
 	while(1)
 	{
-	    # Calculate new values by Boolean functions
-	    Cdh1new = !( Cln2 || Clb5 || Clb2G || Clb2M ) || ( Cdc20 && !( Cln2 || Clb5 || Clb2M ) )
+	    	# Calculate new values by Boolean functions
+	    	Cdh1new = !( Cln2 || Clb5 || Clb2G || Clb2M ) || ( Cdc20 && !( Cln2 || Clb5 || Clb2M ) )
 		SBFnew = ( SBF && !( Clb2G || Clb2M ) ) || 
 			( 
 				( Cdh1 && !SBF && !Cln2 && !Clb5 && !Clb2G && !Clb2M && !Cdc20 ) &&
@@ -222,7 +221,7 @@ while(1)
 		Clb2Mnew = ( Clb2G || Clb2M ) && !Cdh1 && ( !Cdc20 || Clb5 ) && !Cln2
 		Cdc20new = Clb2M || ( Clb2G && Cdc20 )
 
-	    # Which variables change? del...=0 if no change.
+	    	# Which variables change? del...=0 if no change.
 		delCdh1 = Cdh1new - Cdh1
 		delSBF  = SBFnew - SBF
 		delCln2 = Cln2new - Cln2
@@ -231,8 +230,8 @@ while(1)
 		delClb2M = Clb2Mnew - Clb2M
 		delCdc20 = Cdc20new - Cdc20
 	
-	    # Propensity
-	    x1 = abs(delCdh1)*pCdh1
+	    	# Propensity
+	    	x1 = abs(delCdh1)*pCdh1
 		x2 = x1 + abs(delSBF)*pSBF
 		x3 = x2 + abs(delCln2)*pCln2
 		x4 = x3 + abs(delClb5)*pClb5
@@ -241,11 +240,11 @@ while(1)
 		x7 = x6 + abs(delCdc20)*pCdc20
 	
 		# If no variables change, x7=0 so set propensity = pG1
-	    if(x7>0) {  x8=x7 } else 
-	    {  x8=pG1 }
+	    	if(x7>0) {  x8=x7 } else 
+	    	{  x8=pG1 }
 	
 		# Determine which variable actually changes?
-	    s2 = runif(1)*x8
+	    	s2 = runif(1)*x8
 		y1 = (s2<x1)
 		y2 = (s2>=x1)&&(s2<x2)
 		y3 = (s2>=x2)&&(s2<x3)
@@ -290,18 +289,18 @@ while(1)
 		}
 		 
 		# cell division event
-	    if (Clb2G==1 && Clb2Gnew==0 && y5==1)
-	    {
-	    	f = rlnorm(1, log(f.mean), f.CV)
-	        Size.D = Size*exp(mu*delt)*(1-f)
-	        Size = Size*exp(mu*delt)*f
+	    	if (Clb2G==1 && Clb2Gnew==0 && y5==1)
+	    	{
+	    		f = rlnorm(1, log(f.mean), f.CV)
+	        	Size.D = Size*exp(mu*delt)*(1-f)
+	        	Size = Size*exp(mu*delt)*f
 	        
-	        Size_at_birth.D <- c(Size_at_birth.D, Size.D)
-	        Size_at_birth.M <- c(Size_at_birth.M, Size)
+	        	Size_at_birth.D <- c(Size_at_birth.D, Size.D)
+	        	Size_at_birth.M <- c(Size_at_birth.M, Size)
 	        
-	        last.Size_at_birth=Size
+	        	last.Size_at_birth=Size
 	        
-	        if(last.tdiv>0)
+	        	if(last.tdiv>0)
 			{
 				if(sim.who=='M')
 				{
@@ -324,19 +323,18 @@ while(1)
 				} else { stop('Error #3') }
 			}
 	        
-	        S0=rlnorm(1,log(S0.mean), S0.CV) ## set a new S0
+	        	S0=rlnorm(1,log(S0.mean), S0.CV) ## set a new S0
 	        
-	        initials <- rbind(initials, c(Size.D, last.tdiv, last.TG1, Size.D, 's1000001', 'D', tr))
+	        	initials <- rbind(initials, c(Size.D, last.tdiv, last.TG1, Size.D, 's1000001', 'D', tr))
 	        
-	        sim.who='M' # if it's a daughter cell, it becomes a mother cell
-	        
-	    } else
-	    {
-	        Size = Size*exp(mu*delt)
-	    }
+	        	sim.who='M' # if it's a daughter cell, it becomes a mother cell
+	    	} else
+	    	{
+	        	Size = Size*exp(mu*delt)
+	    	}
 	
-	    # Update variables
-	    Cdh1 = Cdh1 + y1*delCdh1
+	    	# Update variables
+	    	Cdh1 = Cdh1 + y1*delCdh1
 		SBF  = SBF  + y2*delSBF
 		Cln2 = Cln2 + y3*delCln2
 		Clb5 = Clb5 + y4*delClb5
@@ -344,11 +342,11 @@ while(1)
 		Clb2M = Clb2M + y6*delClb2M
 		Cdc20 = Cdc20 + y7*delCdc20
 		  
-	    new.state <- data.frame(tr, Cdh1, SBF, Cln2, Clb5, Clb2G, Clb2M, Cdc20, Size, paste0(Cdh1, SBF, Cln2, Clb5, Clb2G, Clb2M, Cdc20))
+	    	new.state <- data.frame(tr, Cdh1, SBF, Cln2, Clb5, Clb2G, Clb2M, Cdc20, Size, paste0(Cdh1, SBF, Cln2, Clb5, Clb2G, Clb2M, Cdc20))
 		colnames(new.state)[10] <- 'Phase'
-	    state <- rbind(state, new.state)
+	    	state <- rbind(state, new.state)
 	    
-	    if(tr>=tr_max) { break };
+	    	if(tr>=tr_max) { break };
 	    
 	} ## end a single trajectory
 } ## end all cells
