@@ -36,8 +36,8 @@ S0=rlnorm(1,log(S0.mean), S0.CV)
 	
 while(tr<tr_max)
 {
-    # Calculate new values by Boolean functions
-    Cdh1new = !( Cln2 || Clb5 || Clb2G || Clb2M ) || ( Cdc20 && !( Cln2 || Clb5 || Clb2M ) )
+    	# Calculate new values by Boolean functions
+    	Cdh1new = !( Cln2 || Clb5 || Clb2G || Clb2M ) || ( Cdc20 && !( Cln2 || Clb5 || Clb2M ) )
 	SBFnew = ( SBF && !( Clb2G || Clb2M ) ) || 
 		( 
 			( Cdh1 && !SBF && !Cln2 && !Clb5 && !Clb2G && !Clb2M && !Cdc20 ) &&
@@ -49,7 +49,7 @@ while(tr<tr_max)
 	Clb2Mnew = ( Clb2G || Clb2M ) && !Cdh1 && ( !Cdc20 || Clb5 ) && !Cln2
 	Cdc20new = Clb2M || ( Clb2G && Cdc20 )
 
-    # Which variables change? del...=0 if no change.
+    	# Which variables change? del...=0 if no change.
 	delCdh1 = Cdh1new - Cdh1
 	delSBF  = SBFnew - SBF
 	delCln2 = Cln2new - Cln2
@@ -58,8 +58,8 @@ while(tr<tr_max)
 	delClb2M = Clb2Mnew - Clb2M
 	delCdc20 = Cdc20new - Cdc20
 
-    # Propensity
-    x1 = abs(delCdh1)*pCdh1
+    	# Propensity
+    	x1 = abs(delCdh1)*pCdh1
 	x2 = x1 + abs(delSBF)*pSBF
 	x3 = x2 + abs(delCln2)*pCln2
 	x4 = x3 + abs(delClb5)*pClb5
@@ -68,11 +68,11 @@ while(tr<tr_max)
 	x7 = x6 + abs(delCdc20)*pCdc20
 
 	# If no variables change, x7=0 so set propensity = pG1
-    if(x7>0) { x8=x7 } else 
-    { x8=pG1 }
+    	if(x7>0) { x8=x7 } else 
+    	{ x8=pG1 }
 
 	# Determine which variable actually changes?
-    s2 = runif(1)*x8
+    	s2 = runif(1)*x8
 	y1 = (s2<x1)
 	y2 = (s2>=x1)&&(s2<x2)
 	y3 = (s2>=x2)&&(s2<x3)
@@ -99,21 +99,20 @@ while(tr<tr_max)
 	tr = tr + delt   
 	
   	# cell division event
-    if (Clb2G==1 && Clb2Gnew==0 && y5==1)
-    {
-        f = rlnorm(1, log(f.mean), f.CV)
+    	if (Clb2G==1 && Clb2Gnew==0 && y5==1)
+    	{
+        	f = rlnorm(1, log(f.mean), f.CV)
      
-        # size at birth of the mother cell
-        Size = Size*exp(mu*delt)*f
-        S0=rlnorm(1,log(S0.mean), S0.CV) ## set a new S0
+        	# size at birth of the mother cell
+        	Size = Size*exp(mu*delt)*f
+        	S0=rlnorm(1,log(S0.mean), S0.CV) ## set a new S0
+    	} else
+    	{
+        	Size = Size*exp(mu*delt)
+    	}	
 
-    } else
-    {
-        Size = Size*exp(mu*delt)
-    }	
-
-    # Update variables
-    Cdh1 = Cdh1 + y1*delCdh1
+    	# Update variables
+    	Cdh1 = Cdh1 + y1*delCdh1
 	SBF  = SBF  + y2*delSBF
 	Cln2 = Cln2 + y3*delCln2
 	Clb5 = Clb5 + y4*delClb5
@@ -123,6 +122,6 @@ while(tr<tr_max)
 	  
 	new.state <- data.frame(tr, Cdh1, SBF, Cln2, Clb5, Clb2G, Clb2M, Cdc20, Size, paste0(Cdh1, SBF, Cln2, Clb5, Clb2G, Clb2M, Cdc20))
 	colnames(new.state)[10] <- 'Phase'
-    state <- rbind(state, new.state)	
+	state <- rbind(state, new.state)	
 }
 	
