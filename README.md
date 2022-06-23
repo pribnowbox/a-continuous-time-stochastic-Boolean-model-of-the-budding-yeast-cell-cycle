@@ -1,9 +1,12 @@
 # a-continuous-time-stochastic-Boolean-model-of-the-budding-yeast-cell-cycle
 
+## 'model.R'
+- requires 'pars.R' (parameter values of the model).
+- produces a variable called 'state' which is a dataframe containing a sequence of 14 recurring states shown in Fig. 1b and Table 3.
+
 ## 'simulate Fig2.R'
 - requires 'pars.R' (parameter values of the model).
 - produces a PDF file of Fig 2 in the manscript.
-- also produces a variable called 'state1' which is a dataframe containing a sequence of 14 recurring states shown in Fig. 1b and Table 3.
 
 ## 'simulate Fig3 & 4.R'
 - requires 'pars.R' (parameter values of the model).
