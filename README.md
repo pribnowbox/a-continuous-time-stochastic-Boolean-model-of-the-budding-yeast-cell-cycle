@@ -7,5 +7,5 @@
 
 ## 'simulate Fig3 & 4.R'
 - requires 'pars.R' (parameter values of the model).
-- requires 'stat_exp.csv' (experimental data from [Di Talia et. al's 2007 paper](https://www.nature.com/articles/nature06072)).
+- requires 'stat_exp.csv' (experimental data from <a href="https://www.nature.com/articles/nature06072" target="_blank">Di Talia et. al's 2007 paper</a>)
 - produces PDF files of Figs 3 and 4 in the manuscript.
