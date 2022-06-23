@@ -68,8 +68,8 @@ for(rep in 1:20) # repeats (20 cells)
 	
 	while(1) # will break out when tick > tick_max
 	{
-	    # Calculate new values by Boolean functions
-	    Cdh1new = !( Cln2 || Clb5 || Clb2G || Clb2M ) || ( Cdc20 && !( Cln2 || Clb5 || Clb2M ) )
+	    	# Calculate new values by Boolean functions
+	    	Cdh1new = !( Cln2 || Clb5 || Clb2G || Clb2M ) || ( Cdc20 && !( Cln2 || Clb5 || Clb2M ) )
 		SBFnew = ( SBF && !( Clb2G || Clb2M ) ) || 
 			( 
 				( Cdh1 && !SBF && !Cln2 && !Clb5 && !Clb2G && !Clb2M && !Cdc20 ) &&
@@ -81,7 +81,7 @@ for(rep in 1:20) # repeats (20 cells)
 		Clb2Mnew = ( Clb2G || Clb2M ) && !Cdh1 && ( !Cdc20 || Clb5 ) && !Cln2
 		Cdc20new = Clb2M || ( Clb2G && Cdc20 )
 
-	    # Which variables change? del...=0 if no change.
+	    	# Which variables change? del...=0 if no change.
 		delCdh1 = Cdh1new - Cdh1
 		delSBF  = SBFnew - SBF
 		delCln2 = Cln2new - Cln2
@@ -90,8 +90,8 @@ for(rep in 1:20) # repeats (20 cells)
 		delClb2M = Clb2Mnew - Clb2M
 		delCdc20 = Cdc20new - Cdc20
 	
-	    # Propensity
-	    x1 = abs(delCdh1)*pCdh1
+	    	# Propensity
+	    	x1 = abs(delCdh1)*pCdh1
 		x2 = x1 + abs(delSBF)*pSBF
 		x3 = x2 + abs(delCln2)*pCln2
 		x4 = x3 + abs(delClb5)*pClb5
@@ -100,11 +100,11 @@ for(rep in 1:20) # repeats (20 cells)
 		x7 = x6 + abs(delCdc20)*pCdc20
 	
 		# If no variables change, x7=0 so set propensity = pG1
-	    if(x7>0) { x8=x7 } else 
-	    { x8=pG1 }
+	    	if(x7>0) { x8=x7 } else 
+	    	{ x8=pG1 }
 	
 		# Determine which variable actually changes?
-	    s2 = runif(1)*x8
+	    	s2 = runif(1)*x8
 		y1 = (s2<x1)
 		y2 = (s2>=x1)&&(s2<x2)
 		y3 = (s2>=x2)&&(s2<x3)
@@ -131,11 +131,11 @@ for(rep in 1:20) # repeats (20 cells)
 		tr = tr + delt
 		
 		# Before updating vairables, check if tr hits the tick    
-	    Size -> Size.tick
-	    while(tr>tick) 
-	    {
+	    	Size -> Size.tick
+	    	while(tr>tick) 
+	    	{
 			tick_timecourse <- c(tick_timecourse, tick)
-	    	tr_timecourse <- c(tr_timecourse, tr)
+	    		tr_timecourse <- c(tr_timecourse, tr)
 			Cdh1_timecourse <- c(Cdh1_timecourse, Cdh1)
 			SBF_timecourse <- c(SBF_timecourse, SBF)
 			Cln2_timecourse <- c(Cln2_timecourse, Cln2)
@@ -152,30 +152,29 @@ for(rep in 1:20) # repeats (20 cells)
 				#print(tick); 
 				break;
 			}
-	    }
+	    	}
 	    
 		
 	  	# cell division event
-	    if (Clb2G==1 && Clb2Gnew==0 && y5==1)
-	    {
-	        f = rlnorm(1, log(f.mean), f.CV)
+	    	if (Clb2G==1 && Clb2Gnew==0 && y5==1)
+	    	{
+	        	f = rlnorm(1, log(f.mean), f.CV)
 	        
-	        # record initial conditions of the new daughter cell
-	        Size.D = Size*exp(mu*delt)*(1-f)
-	        initials.D <- rbind(initials.D, c(Size.D, tr))
+	        	# record initial conditions of the new daughter cell
+	        	Size.D = Size*exp(mu*delt)*(1-f)
+	        	initials.D <- rbind(initials.D, c(Size.D, tr))
 	        
-	        # size at birth of the mother cell
-	        Size = Size*exp(mu*delt)*f
+	        	# size at birth of the mother cell
+	        	Size = Size*exp(mu*delt)*f
 
-	        S0=rlnorm(1,log(S0.mean), S0.CV) ## set a new S0
-
-	    } else
-	    {
-	        Size = Size*exp(mu*delt)
-	    }	
+	        	S0=rlnorm(1,log(S0.mean), S0.CV) ## set a new S0
+	    	} else
+	    	{
+	        	Size = Size*exp(mu*delt)
+	    	}	
 	
-	    # Update variables
-	    Cdh1 = Cdh1 + y1*delCdh1
+	    	# Update variables
+	    	Cdh1 = Cdh1 + y1*delCdh1
 		SBF  = SBF  + y2*delSBF
 		Cln2 = Cln2 + y3*delCln2
 		Clb5 = Clb5 + y4*delClb5
@@ -183,11 +182,11 @@ for(rep in 1:20) # repeats (20 cells)
 		Clb2M = Clb2M + y6*delClb2M
 		Cdc20 = Cdc20 + y7*delCdc20
 		  
-	    new.state <- data.frame(tr, Cdh1, SBF, Cln2, Clb5, Clb2G, Clb2M, Cdc20, Size, paste0(Cdh1, SBF, Cln2, Clb5, Clb2G, Clb2M, Cdc20))
+	    	new.state <- data.frame(tr, Cdh1, SBF, Cln2, Clb5, Clb2G, Clb2M, Cdc20, Size, paste0(Cdh1, SBF, Cln2, Clb5, Clb2G, Clb2M, Cdc20))
 		colnames(new.state)[10] <- 'Phase'
-	    state <- rbind(state, new.state)	
+	    	state <- rbind(state, new.state)	
 	    
-	    if(tick > tick_max) {break;} ## break from current repeat.
+	    	if(tick > tick_max) {break;} ## break from current repeat.
 	    
 	} ## end single trajectory
 	
@@ -249,8 +248,8 @@ while(1)
 		
 	while(1) # will break out when tick > tick_max
 	{
-	    # Calculate new values by Boolean functions
-	    Cdh1new = !( Cln2 || Clb5 || Clb2G || Clb2M ) || ( Cdc20 && !( Cln2 || Clb5 || Clb2M ) )
+	    	# Calculate new values by Boolean functions
+	    	Cdh1new = !( Cln2 || Clb5 || Clb2G || Clb2M ) || ( Cdc20 && !( Cln2 || Clb5 || Clb2M ) )
 		SBFnew = ( SBF && !( Clb2G || Clb2M ) ) || 
 			( ( Cdh1 && !SBF && !Cln2 && !Clb5 && !Clb2G && !Clb2M && !Cdc20 ) &&
 			  ( Size > S0 ) && ( runif(1) < (Size-S0)^2 )
@@ -261,7 +260,7 @@ while(1)
 		Clb2Mnew = ( Clb2G || Clb2M ) && !Cdh1 && ( !Cdc20 || Clb5 ) && !Cln2
 		Cdc20new = Clb2M || ( Clb2G && Cdc20 )
 
-	    # Which variables change? del...=0 if no change.
+	    	# Which variables change? del...=0 if no change.
 		delCdh1 = Cdh1new - Cdh1
 		delSBF  = SBFnew - SBF
 		delCln2 = Cln2new - Cln2
@@ -270,8 +269,8 @@ while(1)
 		delClb2M = Clb2Mnew - Clb2M
 		delCdc20 = Cdc20new - Cdc20
 	
-	    # Propensity
-	    x1 = abs(delCdh1)*pCdh1
+	    	# Propensity
+	    	x1 = abs(delCdh1)*pCdh1
 		x2 = x1 + abs(delSBF)*pSBF
 		x3 = x2 + abs(delCln2)*pCln2
 		x4 = x3 + abs(delClb5)*pClb5
@@ -280,11 +279,11 @@ while(1)
 		x7 = x6 + abs(delCdc20)*pCdc20
 	
 		# If no variables change, x7=0 so set propensity = pG1
-	    if(x7>0) { x8=x7 } else 
-	    { x8=pG1 }
+	    	if(x7>0) { x8=x7 } else 
+	    	{ x8=pG1 }
 	
 		# Determine which variable actually changes?
-	    s2 = runif(1)*x8
+	    	s2 = runif(1)*x8
 		y1 = (s2<x1)
 		y2 = (s2>=x1)&&(s2<x2)
 		y3 = (s2>=x2)&&(s2<x3)
@@ -312,10 +311,10 @@ while(1)
 		
 		# Before updating vairables, check if tr hits the tick    
 		Size -> Size.tick
-	    while(tr>tick) 
-	    {
+	    	while(tr>tick) 
+	    	{
 			tick_timecourse <- c(tick_timecourse, tick)
-	    	tr_timecourse <- c(tr_timecourse, tr)
+	    		tr_timecourse <- c(tr_timecourse, tr)
 			Cdh1_timecourse <- c(Cdh1_timecourse, Cdh1)
 			SBF_timecourse <- c(SBF_timecourse, SBF)
 			Cln2_timecourse <- c(Cln2_timecourse, Cln2)
@@ -332,29 +331,28 @@ while(1)
 				#print(tick); 
 				break;
 			}
-	    }
+	    	}
 
-	    if (Clb2G==1 && Clb2Gnew==0 && y5==1)
-	    {
-	        f = rlnorm(1, log(f.mean), f.CV)
+	    	if (Clb2G==1 && Clb2Gnew==0 && y5==1)
+	    	{
+	        	f = rlnorm(1, log(f.mean), f.CV)
 	        
-	        # record initial conditions of the new daughter cell
-	        Size.D = Size*exp(mu*delt)*(1-f)
-	        initials.D <- rbind(initials.D, c(Size.D, tr))
+	        	# record initial conditions of the new daughter cell
+	        	Size.D = Size*exp(mu*delt)*(1-f)
+	        	initials.D <- rbind(initials.D, c(Size.D, tr))
 	        
-	        # size at birth of the mother cell
-	        Size = Size*exp(mu*delt)*f
+	        	# size at birth of the mother cell
+	        	Size = Size*exp(mu*delt)*f
 
-	        ## Set a new S0
-	        S0=rlnorm(1,log(S0.mean), S0.CV)
-
-	    } else
-	    {
-	        Size = Size*exp(mu*delt)
-	    }	
+	        	## Set a new S0
+	        	S0=rlnorm(1,log(S0.mean), S0.CV)
+	    	} else
+	    	{
+	        	Size = Size*exp(mu*delt)
+	    	}	
 	
-	    # Update variables
-	    Cdh1 = Cdh1 + y1*delCdh1
+	    	# Update variables
+	    	Cdh1 = Cdh1 + y1*delCdh1
 		SBF  = SBF  + y2*delSBF
 		Cln2 = Cln2 + y3*delCln2
 		Clb5 = Clb5 + y4*delClb5
@@ -362,9 +360,9 @@ while(1)
 		Clb2M = Clb2M + y6*delClb2M
 		Cdc20 = Cdc20 + y7*delCdc20
 		  
-	    new.state <- data.frame(tr, Cdh1, SBF, Cln2, Clb5, Clb2G, Clb2M, Cdc20, Size, paste0(Cdh1, SBF, Cln2, Clb5, Clb2G, Clb2M, Cdc20))
+	    	new.state <- data.frame(tr, Cdh1, SBF, Cln2, Clb5, Clb2G, Clb2M, Cdc20, Size, paste0(Cdh1, SBF, Cln2, Clb5, Clb2G, Clb2M, Cdc20))
 		colnames(new.state)[10] <- 'Phase'
-	    state <- rbind(state, new.state)		    
+	    	state <- rbind(state, new.state)		    
 
 		if(tick > tick_max) {break;} ## break from current repeat.
 		
