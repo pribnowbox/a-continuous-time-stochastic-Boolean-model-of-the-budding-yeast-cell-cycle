@@ -2,7 +2,7 @@
 
 ## 'model.R'
 - requires 'pars.R' (parameter values of the model).
-- produces a variable named 'state' which is a dataframe containing a sequence of 14 recurring states shown in Fig. 1b and Table 3.
+- produces a variable named 'state' which is a dataframe containing a sequence of 14 recurring states shown in Fig. 1b and Table 2.
 
 ## 'simulate Fig1c-1f.R'
 - requires 'pars.R' (parameter values of the model).
