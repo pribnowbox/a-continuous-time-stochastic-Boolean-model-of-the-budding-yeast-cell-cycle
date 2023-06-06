@@ -6,7 +6,7 @@
 
 ## 'simulate Fig1c-1f.R'
 - requires 'pars.R' (parameter values of the model).
-- produces Fig. 1c-f in the manscript.
+- produces Fig. 1c-1f in the manuscript.
 
 ## 'simulate Fig2.R'
 - requires 'pars.R' (parameter values of the model).
